@@ -1,23 +1,37 @@
 import sublime, sublime_plugin
+import re
 
 class SqlAutoComplete(sublime_plugin.EventListener):
+	def on_modified(self, view):
+		print view.file_name() + " modified"  
+		if ".sql" in view.file_name(): 
+			view.run_command("replace_in_sql_snippet") 
+
 	def on_query_completions(self, view, prefix, locations):
-		print [('a','b')]
-		 
+		print "on_query_completions"   
+		return [ { "trigger": "a", "contents": "<a href=\"$1\">$0</a>" } ]
+ 
+    
 
-		return [
-                { "trigger": "a", "contents": "<a href=\"$1\">$0</a>" },
-                { "trigger": "abbr", "contents": "<abbr>$0</abbr>" },
-                { "trigger": "acronym", "contents": "<acronym>$0</acronym>" }
-        ]
-
-class AutoSqlCommand(sublime_plugin.TextCommand):
+class ReplaceInSqlSnippetCommand(sublime_plugin.TextCommand):
 	def run(self, edit):
-		sels = self.view.sel()
+		schema = self.get_schema() 
+		schemaRegin = self.view.find("\{schema\}", 0, sublime.IGNORECASE)
+		if schema and schemaRegin: 
+			print self.view.substr(schemaRegin)
+			self.view.replace(edit, schemaRegin, schema.upper())
 
-		for selection in sels:
-			print self.prefix_word(selection)
-			self.view.window().show_quick_panel(['a','b'], self.on_done(), sublime.MONOSPACE_FONT)
+		# sels = self.view.sel() 
+		# for selection in sels:
+		# 	print self.prefix_word(selection)
+		# 	self.view.window().show_quick_panel(['a','b'], self.on_done(), sublime.MONOSPACE_FONT)
+
+	def get_schema(self):
+		useRegin = self.view.find("use ?.*;", 0, sublime.IGNORECASE) 
+		if useRegin: 
+			schema = re.compile("use ?(.*);", re.IGNORECASE).match(self.view.substr(useRegin)).group(1)
+			return schema 
+		return None 
 
 	def prefix_word(self, selection):
 		begin = self.view.line(selection).begin()

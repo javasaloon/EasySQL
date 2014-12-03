@@ -1,5 +1,5 @@
 <snippet>
-    <content><![CDATA[select ${1:*} from "${2:table}"]]></content> 
+    <content><![CDATA[SELECT ${1:*} FROM "${2:{schema}}".${3:[TABLE]};]]></content> 
     <tabTrigger>sel</tabTrigger> 
     <scope>source.sql</scope> 
     <description>select from where</description>
