@@ -1,0 +1,17 @@
+<snippet>
+    <content><![CDATA[CREATE ${1:COLUMN} TABLE ${2:table_name} (${3:column_name} ${4:column_type} PRIMARY KEY);]]></content> 
+    <tabTrigger>cre</tabTrigger> 
+    <scope>source.sql</scope> 
+    <description>CREATE SCHEMA</description>
+</snippet>
+
+CREATE [<table_type>] TABLE <table_name> <table_contents_source> [<logging_option>] [<auto_merge_option>]
+        [<unload_priority_clause>] [<schema_flexibility_option>] [<partition_clause>] [<location_clause>]
+ | 
+CREATE VIRTUAL TABLE <table_name> <remote_location_clause>
+
+<table_type> ::= COLUMN
+                | ROW
+                | HISTORY COLUMN
+                | GLOBAL TEMPORARY
+                | LOCAL TEMPORARY

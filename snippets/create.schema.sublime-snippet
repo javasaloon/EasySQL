@@ -1,0 +1,7 @@
+<snippet>
+    <content><![CDATA[CREATE SCHEMA ${1:schema_name} OWNED BY ${2:system};]]></content> 
+    <tabTrigger>cre</tabTrigger> 
+    <scope>source.sql</scope> 
+    <description>CREATE SCHEMA</description>
+</snippet>
+

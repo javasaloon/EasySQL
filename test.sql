@@ -1,12 +1,6 @@
-use sbotestus;
+use easysql;
 
-select * from table
-select * from " table""
-select * from " table"
-select * from "table"  
-select * from ""
-select * from "table"   
-select * from "table"   
-select * from "table"    
-select * from "sbotestus"                 
-select * from "sbotestus"			
+SELECT * FROM "EASYSQL"."product";
+CREATE SCHEMA easysql OWNED BY system;
+CREATE TABLE product (id int PRIMARY KEY);
+SELECT * FROM "EASYSQL"."table_name";
